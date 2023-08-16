@@ -1,18 +1,32 @@
-import * as React from 'react';
+import React, { useCallback } from 'react';
 
-import { StyleSheet, View, Text } from 'react-native';
-import { multiply } from 'react-native-mdc-datepicker';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { MDCDatePicker } from 'react-native-mdc-datepicker';
 
 export default function App() {
-  const [result, setResult] = React.useState<number | undefined>();
+  const onPress = useCallback(async () => {
+    const minDate = new Date(2020, 5, 14);
+    const maxDate = new Date(2023, 11, 31);
+    const initialDate = new Date(2022, 6, 24);
+    try {
+      const date = await MDCDatePicker.present({
+        title: 'Выбрать дату',
+        minDate,
+        maxDate,
+        initialDate,
+      });
 
-  React.useEffect(() => {
-    multiply(3, 7).then(setResult);
+      console.log(date);
+    } catch (err) {
+      console.log(err);
+    }
   }, []);
 
   return (
     <View style={styles.container}>
-      <Text>Result: {result}</Text>
+      <TouchableOpacity onPress={onPress}>
+        <Text>Show Date Picker</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -22,10 +36,5 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  box: {
-    width: 60,
-    height: 60,
-    marginVertical: 20,
   },
 });
