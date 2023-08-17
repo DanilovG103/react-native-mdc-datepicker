@@ -8,7 +8,7 @@ import com.facebook.react.uimanager.ViewManager
 
 class MdcDatepickerPackage : ReactPackage {
   override fun createNativeModules(reactContext: ReactApplicationContext): List<NativeModule> {
-    return listOf(MdcDatepickerModule(reactContext))
+    return listOf(MdcDatepickerModule(reactContext), MdcTimepickerModule(reactContext))
   }
 
   override fun createViewManagers(reactContext: ReactApplicationContext): List<ViewManager<*, *>> {

@@ -23,3 +23,18 @@ export interface PickerRangeOptions extends BasePickerOptions {
 export interface PickerDefaultOptions extends BasePickerOptions {
   value?: Date | null;
 }
+
+export type TimePickerFormat = '24' | '12';
+
+export type TimePickerMode = 'input' | 'clock';
+
+export interface TimePickerOptions {
+  title?: string;
+  format?: TimePickerFormat;
+  mode?: TimePickerMode;
+}
+
+export interface TimePickerResult {
+  hour: number;
+  minute: number;
+}
