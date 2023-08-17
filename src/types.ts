@@ -4,13 +4,22 @@ export interface PickerResult {
   day: number;
 }
 
-export interface PickerOptions {
+export interface PickerRangeResult {
+  start: Date;
+  end: Date;
+}
+
+export interface BasePickerOptions {
   title?: string;
   minDate?: Date;
   maxDate?: Date;
-  initialDate: Date;
 }
 
-export interface Picker {
-  present: (options: PickerOptions) => Promise<PickerResult>;
+export interface PickerRangeOptions extends BasePickerOptions {
+  start?: Date | null;
+  end?: Date | null;
+}
+
+export interface PickerDefaultOptions extends BasePickerOptions {
+  value?: Date | null;
 }
