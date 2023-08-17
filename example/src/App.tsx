@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
-import { MDCDatePicker } from 'react-native-mdc-datepicker';
+import { MDCDatePicker, MDCTimePicker } from 'react-native-mdc-datepicker';
 
 const minDate = new Date(2020, 5, 14);
 const maxDate = new Date(2023, 11, 31);
@@ -38,6 +38,13 @@ export default function App() {
     } catch {}
   }, [selectedRange]);
 
+  const presentTimePicker = useCallback(async () => {
+    try {
+      const time = await MDCTimePicker.present({ format: '24', mode: 'clock' });
+      console.log(time);
+    } catch {}
+  }, []);
+
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={presentDefault}>
@@ -45,6 +52,9 @@ export default function App() {
       </TouchableOpacity>
       <TouchableOpacity onPress={presentRange}>
         <Text>Show Date Range Picker</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={presentTimePicker}>
+        <Text>Show Time Picker</Text>
       </TouchableOpacity>
     </View>
   );

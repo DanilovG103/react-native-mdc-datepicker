@@ -5,5 +5,7 @@ class Constants {
     const val MONTH = "month"
     const val DAY = "day"
     const val YEAR = "year"
+    const val HOUR = "hour"
+    const val MINUTE = "minute"
   }
 }
