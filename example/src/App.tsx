@@ -4,7 +4,7 @@ import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { MDCDatePicker, MDCTimePicker } from 'react-native-mdc-datepicker';
 
 const minDate = new Date(2020, 5, 14);
-const maxDate = new Date(2023, 11, 31);
+const maxDate = new Date(2023, 11, 24);
 
 export default function App() {
   const [selected, setSelected] = useState<Date | null>(null);

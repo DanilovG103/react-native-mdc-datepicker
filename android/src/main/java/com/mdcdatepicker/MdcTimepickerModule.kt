@@ -19,6 +19,8 @@ class MdcTimepickerModule(ctx: ReactApplicationContext): ReactContextBaseJavaMod
     val format = args.getString("format")
     val mode = args.getString("mode")
     val title = args.getString("title")
+    val okText = args.getString("confirmText")
+    val cancelText = args.getString("cancelText")
 
     val builder = MaterialTimePicker.Builder()
 
@@ -37,6 +39,9 @@ class MdcTimepickerModule(ctx: ReactApplicationContext): ReactContextBaseJavaMod
     builder.setTimeFormat(timeFormat)
 
     builder.setInputMode(inputMode)
+
+    builder.setNegativeButtonText(cancelText)
+    builder.setPositiveButtonText(okText)
 
     val activity = currentActivity as FragmentActivity
 

@@ -18,13 +18,9 @@ const DatePickerModule =
 
 export class MDCDatePicker {
   public static async present(options?: PickerDefaultOptions): Promise<Date> {
-    const value = await DatePickerModule.present({
-      ...options,
-      minDate: MDCDatePicker.normalizeDate(options?.minDate),
-      maxDate: MDCDatePicker.normalizeDate(options?.maxDate),
-      initialDate: MDCDatePicker.normalizeDate(options?.value),
-      type: 'default',
-    });
+    const args = MDCDatePicker.normalizeOptions(options);
+
+    const value = await DatePickerModule.present(args);
 
     return MDCDatePicker.getDate(value);
   }
@@ -32,19 +28,31 @@ export class MDCDatePicker {
   public static async presentRange(
     options: PickerRangeOptions
   ): Promise<PickerRangeResult> {
-    const value = await DatePickerModule.present({
-      ...options,
-      minDate: MDCDatePicker.normalizeDate(options?.minDate),
-      maxDate: MDCDatePicker.normalizeDate(options?.maxDate),
-      start: MDCDatePicker.normalizeDate(options?.start),
-      end: MDCDatePicker.normalizeDate(options?.end),
-      type: 'range',
-    });
+    const args = MDCDatePicker.normalizeOptions(options);
+    const value = await DatePickerModule.present({ ...args, type: 'range' });
 
     return {
       start: MDCDatePicker.getDate(value.start),
       end: MDCDatePicker.getDate(value.end),
     };
+  }
+
+  private static normalizeOptions(
+    options?: PickerDefaultOptions | PickerRangeOptions
+  ) {
+    if (!options) return {};
+
+    return Object.entries(options).reduce<Record<string, unknown>>(
+      (acc, [key, value]) => {
+        const val =
+          value instanceof Date ? MDCDatePicker.normalizeDate(value) : value;
+
+        acc[key] = val;
+
+        return acc;
+      },
+      {}
+    );
   }
 
   private static normalizeDate(date?: Date | null) {

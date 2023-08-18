@@ -9,6 +9,10 @@ import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReadableMap
 import com.facebook.react.bridge.WritableNativeMap
 import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.CalendarConstraints.DateValidator
+import com.google.android.material.datepicker.CompositeDateValidator
+import com.google.android.material.datepicker.DateValidatorPointBackward
+import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import java.util.Calendar
 
@@ -23,7 +27,6 @@ class MdcDatepickerModule(reactContext: ReactApplicationContext) :
     val activity = currentActivity as FragmentActivity
     val manager = activity.supportFragmentManager
 
-
     val picker = calendarBuilder(arguments, promise)
 
     activity.runOnUiThread {
@@ -32,38 +35,29 @@ class MdcDatepickerModule(reactContext: ReactApplicationContext) :
   }
 
 
-
-  private fun constraintsBuilder(minDate: ReadableMap?, maxDate: ReadableMap?): CalendarConstraints {
-    val constraints = CalendarConstraints.Builder()
-
-    if (minDate != null) {
-      constraints.setStart(minDate.getDateValues())
-    }
-
-    if (maxDate != null) {
-      constraints.setEnd(maxDate.getDateValues())
-    }
-
-    return constraints.build()
-  }
-
   private fun calendarBuilder(options: ReadableMap, promise: Promise): MaterialDatePicker<out Any> {
     val type = options.getString("type")
     val title = options.getString("title")
-    val initialDate = options.getMap("initialDate")
     val minDate = options.getMap("minDate")
     val maxDate = options.getMap("maxDate")
     val constraints = constraintsBuilder(minDate, maxDate)
+    val okText = options.getString("confirmText")
+    val cancelText = options.getString("cancelText")
 
     if (type.equals("range")) {
+      val initialStart = options.getMap("initialStart")
+      val initialEnd = options.getMap("initialEnd")
       val start = options.getMap("start")
       val end = options.getMap("end")
-      val rangeSelection = Pair(start?.getDateValues(), end?.getDateValues())
+      val startValue = start ?: initialStart
+      val endValue = end ?: initialEnd
+      val rangeSelection = Pair(startValue?.getDateValues(), endValue?.getDateValues())
       val rangeBuilder = MaterialDatePicker.Builder
         .dateRangePicker()
         .setTitleText(title)
         .setCalendarConstraints(constraints)
         .setSelection(rangeSelection)
+        .setPositiveButtonText(okText)
 
       val rangePicker = rangeBuilder.build()
 
@@ -83,11 +77,14 @@ class MdcDatepickerModule(reactContext: ReactApplicationContext) :
       .datePicker()
       .setTitleText(title)
       .setCalendarConstraints(constraints)
+      .setPositiveButtonText(okText)
+      .setNegativeButtonText(cancelText)
 
+    val initialDate = options.getMap("initialDate")
+    val value = options.getMap("value")
+    val selection = value ?: initialDate
 
-    if (initialDate != null) {
-      builder.setSelection(initialDate.getDateValues())
-    }
+    builder.setSelection(selection?.getDateValues())
 
     val picker = builder.build()
 
@@ -101,6 +98,28 @@ class MdcDatepickerModule(reactContext: ReactApplicationContext) :
     }
 
     return picker
+  }
+
+  private fun constraintsBuilder(minDate: ReadableMap?, maxDate: ReadableMap?): CalendarConstraints {
+    val constraints = CalendarConstraints.Builder()
+    val validators = mutableListOf<DateValidator>()
+    if (minDate != null) {
+      constraints.setStart(minDate.getDateValues())
+      val minDateValidator = DateValidatorPointForward.from(minDate.getDateValues())
+      validators.add(minDateValidator)
+    }
+
+    if (maxDate != null) {
+      constraints.setEnd(maxDate.getDateValues())
+      val maxDateValidator = DateValidatorPointBackward.before(maxDate.getDateValues())
+      validators.add(maxDateValidator)
+    }
+
+    val validator = CompositeDateValidator.allOf(validators)
+
+    constraints.setValidator(validator)
+
+    return constraints.build()
   }
 
   private fun ReadableMap.getDateValues(): Long {

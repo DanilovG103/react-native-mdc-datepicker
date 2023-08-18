@@ -9,8 +9,13 @@ export interface PickerRangeResult {
   end: Date;
 }
 
-export interface BasePickerOptions {
+export interface TextOptions {
   title?: string;
+  confirmText?: string;
+  cancelText?: string;
+}
+
+export interface BasePickerOptions {
   minDate?: Date;
   maxDate?: Date;
 }
@@ -18,18 +23,21 @@ export interface BasePickerOptions {
 export interface PickerRangeOptions extends BasePickerOptions {
   start?: Date | null;
   end?: Date | null;
+  confirmText?: string;
+  initialStart?: Date;
+  initialEnd?: Date;
 }
 
-export interface PickerDefaultOptions extends BasePickerOptions {
+export interface PickerDefaultOptions extends BasePickerOptions, TextOptions {
   value?: Date | null;
+  initialDate?: Date;
 }
 
 export type TimePickerFormat = '24' | '12';
 
 export type TimePickerMode = 'input' | 'clock';
 
-export interface TimePickerOptions {
-  title?: string;
+export interface TimePickerOptions extends TextOptions {
   format?: TimePickerFormat;
   mode?: TimePickerMode;
 }
