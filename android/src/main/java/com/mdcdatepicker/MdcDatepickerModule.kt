@@ -23,17 +23,15 @@ class MdcDatepickerModule(reactContext: ReactApplicationContext) :
 
   @ReactMethod
   public fun present(arguments: ReadableMap, promise: Promise) {
-
     val activity = currentActivity as FragmentActivity
     val manager = activity.supportFragmentManager
-
+    activity.setTheme(R.style.MaterialTheme)
     val picker = calendarBuilder(arguments, promise)
 
     activity.runOnUiThread {
         picker.show(manager, TAG)
     }
   }
-
 
   private fun calendarBuilder(options: ReadableMap, promise: Promise): MaterialDatePicker<out Any> {
     val type = options.getString("type")
@@ -79,6 +77,7 @@ class MdcDatepickerModule(reactContext: ReactApplicationContext) :
       .setCalendarConstraints(constraints)
       .setPositiveButtonText(okText)
       .setNegativeButtonText(cancelText)
+      .setTheme(R.style.MaterialCalendarTheme)
 
     val initialDate = options.getMap("initialDate")
     val value = options.getMap("value")
@@ -128,8 +127,6 @@ class MdcDatepickerModule(reactContext: ReactApplicationContext) :
     val year = this.getInt("year")
     val month = this.getInt("month")
     val day = this.getInt("day")
-
-    if (year == null || month == null || day == null) return calendar.timeInMillis
 
     calendar.set(year, month, day)
 

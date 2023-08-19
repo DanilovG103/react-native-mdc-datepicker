@@ -16,13 +16,24 @@ class MdcTimepickerModule(ctx: ReactApplicationContext): ReactContextBaseJavaMod
 
   @ReactMethod()
   public fun present(args: ReadableMap, promise: Promise) {
-    val format = args.getString("format")
-    val mode = args.getString("mode")
-    val title = args.getString("title")
-    val okText = args.getString("confirmText")
-    val cancelText = args.getString("cancelText")
+    val activity = currentActivity as FragmentActivity
+    val manager = activity.supportFragmentManager
 
-    val builder = MaterialTimePicker.Builder()
+    activity.setTheme(R.style.MaterialTheme)
+
+    val picker = timePickerBuilder(args, promise)
+
+    activity.runOnUiThread {
+      picker.show(manager, TAG)
+    }
+  }
+
+  private fun timePickerBuilder(options: ReadableMap, promise: Promise): MaterialTimePicker {
+    val format = options.getString("format")
+    val mode = options.getString("mode")
+    val title = options.getString("title")
+    val okText = options.getString("confirmText")
+    val cancelText = options.getString("cancelText")
 
     val timeFormat = when {
       format.equals("24") -> TimeFormat.CLOCK_24H
@@ -34,18 +45,13 @@ class MdcTimepickerModule(ctx: ReactApplicationContext): ReactContextBaseJavaMod
       else -> MaterialTimePicker.INPUT_MODE_CLOCK
     }
 
-    builder.setTitleText(title)
-
-    builder.setTimeFormat(timeFormat)
-
-    builder.setInputMode(inputMode)
-
-    builder.setNegativeButtonText(cancelText)
-    builder.setPositiveButtonText(okText)
-
-    val activity = currentActivity as FragmentActivity
-
-    val manager = activity.supportFragmentManager
+    val builder = MaterialTimePicker.Builder()
+      .setTitleText(title)
+      .setTimeFormat(timeFormat)
+      .setInputMode(inputMode)
+      .setNegativeButtonText(cancelText)
+      .setPositiveButtonText(okText)
+      .setTheme(R.style.MaterialTimePickerTheme)
 
     val picker = builder.build()
 
@@ -58,9 +64,7 @@ class MdcTimepickerModule(ctx: ReactApplicationContext): ReactContextBaseJavaMod
       }
     }
 
-    activity.runOnUiThread {
-      picker.show(manager, TAG)
-    }
+    return picker
   }
 
   private fun onApply(promise: Promise, hour: Int, minute: Int) {
