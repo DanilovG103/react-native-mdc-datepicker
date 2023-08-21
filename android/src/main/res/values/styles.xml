@@ -6,6 +6,7 @@
     <item name="buttonBarPositiveButtonStyle">@style/MaterialTextButton</item>
     <item name="buttonBarNegativeButtonStyle">@style/MaterialTextButton</item>
   </style>
+  <style name="MaterialCalendarFullScreenTheme" parent="ThemeOverlay.Material3.MaterialCalendar.Fullscreen" />
   <style name="MaterialTimePickerTheme" parent="ThemeOverlay.Material3.MaterialTimePicker">
     <item name="borderlessButtonStyle">@style/MaterialTextButton</item>
   </style>

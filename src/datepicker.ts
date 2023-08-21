@@ -20,7 +20,10 @@ export class MDCDatePicker {
   public static async present(options?: PickerDefaultOptions): Promise<Date> {
     const args = MDCDatePicker.normalizeOptions(options);
 
-    const value = await DatePickerModule.present(args);
+    const value = await DatePickerModule.present({
+      fullScreen: false,
+      ...args,
+    });
 
     return MDCDatePicker.getDate(value);
   }
@@ -29,7 +32,11 @@ export class MDCDatePicker {
     options: PickerRangeOptions
   ): Promise<PickerRangeResult> {
     const args = MDCDatePicker.normalizeOptions(options);
-    const value = await DatePickerModule.present({ ...args, type: 'range' });
+    const value = await DatePickerModule.present({
+      fullScreen: true,
+      ...args,
+      type: 'range',
+    });
 
     return {
       start: MDCDatePicker.getDate(value.start),
