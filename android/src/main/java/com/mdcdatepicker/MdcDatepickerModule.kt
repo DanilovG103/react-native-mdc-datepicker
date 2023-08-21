@@ -7,6 +7,7 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
 import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReadableMap
+import com.facebook.react.bridge.UiThreadUtil
 import com.facebook.react.bridge.WritableNativeMap
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.CalendarConstraints.DateValidator
@@ -34,6 +35,7 @@ class MdcDatepickerModule(reactContext: ReactApplicationContext) :
   }
 
   private fun calendarBuilder(options: ReadableMap, promise: Promise): MaterialDatePicker<out Any> {
+    val fullscreen = options.getBoolean("fullScreen")
     val type = options.getString("type")
     val title = options.getString("title")
     val minDate = options.getMap("minDate")
@@ -41,6 +43,7 @@ class MdcDatepickerModule(reactContext: ReactApplicationContext) :
     val constraints = constraintsBuilder(minDate, maxDate)
     val okText = options.getString("confirmText")
     val cancelText = options.getString("cancelText")
+    val theme = if (fullscreen) R.style.MaterialCalendarFullScreenTheme else R.style.MaterialCalendarTheme
 
     if (type.equals("range")) {
       val initialStart = options.getMap("initialStart")
@@ -56,6 +59,7 @@ class MdcDatepickerModule(reactContext: ReactApplicationContext) :
         .setCalendarConstraints(constraints)
         .setSelection(rangeSelection)
         .setPositiveButtonText(okText)
+        .setTheme(theme)
 
       val rangePicker = rangeBuilder.build()
 
@@ -77,7 +81,7 @@ class MdcDatepickerModule(reactContext: ReactApplicationContext) :
       .setCalendarConstraints(constraints)
       .setPositiveButtonText(okText)
       .setNegativeButtonText(cancelText)
-      .setTheme(R.style.MaterialCalendarTheme)
+      .setTheme(theme)
 
     val initialDate = options.getMap("initialDate")
     val value = options.getMap("value")

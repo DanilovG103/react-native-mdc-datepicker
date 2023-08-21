@@ -15,9 +15,10 @@ export interface TextOptions {
   cancelText?: string;
 }
 
-export interface BasePickerOptions {
+interface BasePickerOptions {
   minDate?: Date;
   maxDate?: Date;
+  fullScreen?: boolean;
 }
 
 export interface PickerRangeOptions extends BasePickerOptions {
