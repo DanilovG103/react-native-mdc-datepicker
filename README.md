@@ -5,7 +5,7 @@
   <tr>
     <td><p align="center"><img src="./docs/images/mdc-datepicker-default.jpg" width="200" height="400"/></p></td>
     <td><p align="center"><img src="./docs/images/mdc-datepicker-range.jpg" width="200" height="400"/></p></td>
-    <td><p align="center"><img src="./docs/images/mdc-timepicker" width="200" height="400"/></p></td>
+    <td><p align="center"><img src="./docs/images/mdc-timepicker.jpg" width="200" height="400"/></p></td>
   </tr>
 </table>
 
