@@ -25,6 +25,7 @@ interface BasePickerOptions {
 export interface PickerRangeOptions extends BasePickerOptions {
   start?: Date | null;
   end?: Date | null;
+  title?: string;
   confirmText?: string;
   initialStart?: Date;
   initialEnd?: Date;

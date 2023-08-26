@@ -30,7 +30,7 @@ export class MDCDatePicker {
   }
 
   public static async presentRange(
-    options: PickerRangeOptions
+    options?: PickerRangeOptions
   ): Promise<PickerRangeResult> {
     const args = MDCDatePicker.normalizeOptions(options);
     const value = await DatePickerModule.present({
