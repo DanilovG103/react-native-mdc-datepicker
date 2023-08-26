@@ -15,7 +15,12 @@ export class MDCTimePicker {
   public static async present(
     options?: TimePickerOptions
   ): Promise<TimePickerResult> {
-    const data = await TimePickerModule.present(options ?? {});
+    const args = {
+      dynamicColors: false,
+      ...options,
+    };
+
+    const data = await TimePickerModule.present(args);
 
     return data;
   }

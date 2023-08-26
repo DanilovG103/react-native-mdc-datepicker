@@ -25,8 +25,10 @@ class MdcDatepickerModule(reactContext: ReactApplicationContext) :
   @ReactMethod
   public fun present(arguments: ReadableMap, promise: Promise) {
     val activity = currentActivity as FragmentActivity
+    val dynamicColors = arguments.getBoolean("dynamicColors")
+    val activityTheme = if (dynamicColors) R.style.MaterialDynamicTheme else R.style.MaterialTheme
     val manager = activity.supportFragmentManager
-    activity.setTheme(R.style.MaterialTheme)
+    activity.setTheme(activityTheme)
     val picker = calendarBuilder(arguments, promise)
 
     activity.runOnUiThread {

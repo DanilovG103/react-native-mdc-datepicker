@@ -18,6 +18,7 @@ export default function App() {
         minDate,
         maxDate,
         value: selected,
+        dynamicColors: true,
       });
 
       setSelected(date);
@@ -31,6 +32,7 @@ export default function App() {
       const val = await MDCDatePicker.presentRange({
         minDate,
         maxDate,
+        dynamicColors: true,
         ...selectedRange,
       });
       console.log(val);
@@ -40,7 +42,10 @@ export default function App() {
 
   const presentTimePicker = useCallback(async () => {
     try {
-      const time = await MDCTimePicker.present({ format: '24', mode: 'clock' });
+      const time = await MDCTimePicker.present({
+        format: '24',
+        mode: 'clock',
+      });
       console.log(time);
     } catch {}
   }, []);
