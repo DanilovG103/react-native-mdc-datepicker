@@ -1,31 +1,110 @@
-# react-native-mdc-datepicker
+# React Native Material Design Datepicker
 
-React Native Material Design Date Picker
+## Screenshots
+<table>
+  <tr>
+    <td><p align="center"><img src="./docs/images/mdc-datepicker-default.jpg" width="200" height="400"/></p></td>
+    <td><p align="center"><img src="./docs/images/mdc-datepicker-range.jpg" width="200" height="400"/></p></td>
+    <td><p align="center"><img src="./docs/images/mdc-timepicker" width="200" height="400"/></p></td>
+  </tr>
+</table>
 
 ## Installation
 
-```sh
-npm install react-native-mdc-datepicker
+```bash
+npm install react-native-mdc-datepicker --save
+```
+or
+```bash
+yarn add react-native-mdc-datepicker
 ```
 
-## Usage
+## MDCDatePicker Api
 
 ```js
-import { multiply } from 'react-native-mdc-datepicker';
+import { MDCDatePicker } from "react-native-mdc-datepicker"
 
-// ...
+MDCDatePicker.present(options?: PickerDefaultOptions): Promise<Date>
 
-const result = await multiply(3, 7);
+MDCDatePicker.presentRange(options?: PickerRangeOptions): Promise<{start: Date, end: Date}>
 ```
 
-## Contributing
+## MDCTimePicker Api
 
-See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
+```js
+import { MDCTimePicker } from "react-native-mdc-datepicker"
 
-## License
+MDCTimePicker.present(options?: TimePickerOptions): Promise<{hour: number, minute: number}>
 
-MIT
+```
 
----
+## Usage (Imperative Api)
+```js
+const [selected, setSelected] = useState<Date | null>(null);
 
-Made with [create-react-native-library](https://github.com/callstack/react-native-builder-bob)
+const [selectedRange, setSelectedRange] = useState<{
+    start: Date | null;
+    end: Date | null;
+  }>({ start: null, end: null });
+
+const presentDefault = async () => {
+    try {
+      const date = await MDCDatePicker.present();
+      setSelected(date);
+    } catch (err) {}
+}
+
+const presentRange = async () => {
+    try {
+      const value = await MDCDatePicker.presentRange();
+      setSelectedRange(val);
+    } catch {}
+}
+
+```
+
+
+## Picker Options
+| Prop | Type | Required | Description |
+| --- | --- | --- | ---
+| value | Date or null | NO | Selected value
+| initialDate | Date | NO | Initially selected value
+| minDate | Date | NO | Minimum date that can be selected
+| maxDate | Date | NO | Maximum date that can be selected
+| fullScreen | boolean (default - false) | NO | If true datepicker will be presented in full screen
+| dynamicColors | boolean (default - false) | NO | If true will aplly system dynamic colors
+| title | string | NO | Title of the picker
+| confirmText | string | NO | Confirm text of the picker
+| cancelText | string | NO | Cancel text of the picker
+
+## Range Picker Options
+| Prop | Type | Required | Description |
+| --- | --- | --- | ---
+| start | Date or null | NO | Selected start value
+| end | Date or null | NO | Selected end value
+| initialStart | Date | NO | Initially selected value for start
+| initialEnd | Date | NO | Initially selected value for end
+| minDate | Date | NO | Minimum date that can be selected
+| maxDate | Date | NO | Maximum date that can be selected
+| fullScreen | boolean (default - false) | NO | If true datepicker will be presented in full screen
+| dynamicColors | boolean (default - false) | NO | If true will aplly system dynamic colors
+| title | string | NO | Title of the picker
+| confirmText | string | NO | Confirm text of the picker
+
+
+## TimePicker Options
+
+| Prop | Type | Required | Description |
+| --- | --- | --- | ---
+| format | '24' or '12' | NO | Defines time format of the picker
+| mode | 'input' or 'clock' | NO | Defines start mode of the picker
+| dynamicColors | boolean (default - false) | NO | If true will aplly system dynamic colors
+| title | string | NO | Title of the picker
+| confirmText | string | NO | Confirm text of the picker
+| cancelText | string | NO | Cancel text of the picker
+
+
+
+
+
+
