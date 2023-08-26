@@ -18,8 +18,11 @@ class MdcTimepickerModule(ctx: ReactApplicationContext): ReactContextBaseJavaMod
   public fun present(args: ReadableMap, promise: Promise) {
     val activity = currentActivity as FragmentActivity
     val manager = activity.supportFragmentManager
+    val dynamicColors = args.getBoolean("dynamicColors")
 
-    activity.setTheme(R.style.MaterialTheme)
+    val activityTheme = if (dynamicColors) R.style.MaterialDynamicTheme else R.style.MaterialTheme
+
+    activity.setTheme(activityTheme)
 
     val picker = timePickerBuilder(args, promise)
 

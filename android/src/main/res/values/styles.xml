@@ -2,15 +2,21 @@
 <resources>
 
   <style name="MaterialTheme" parent="Theme.Material3.DayNight"/>
-  <style name="MaterialCalendarTheme" parent="ThemeOverlay.Material3.MaterialCalendar">
+  <style name="MaterialDynamicTheme" parent="Theme.Material3.DynamicColors.DayNight" />
+  <style name="BaseMaterialCalendarTheme" parent="ThemeOverlay.Material3.MaterialCalendar">
     <item name="buttonBarPositiveButtonStyle">@style/MaterialTextButton</item>
     <item name="buttonBarNegativeButtonStyle">@style/MaterialTextButton</item>
   </style>
-  <style name="MaterialCalendarFullScreenTheme" parent="ThemeOverlay.Material3.MaterialCalendar.Fullscreen" />
+  <style name="BaseMaterialCalendarFullScreenTheme" parent="ThemeOverlay.Material3.MaterialCalendar.Fullscreen" />
   <style name="MaterialTimePickerTheme" parent="ThemeOverlay.Material3.MaterialTimePicker">
     <item name="borderlessButtonStyle">@style/MaterialTextButton</item>
   </style>
   <style name="MaterialTextButton" parent="Widget.Material3.Button.TextButton.Dialog">
     <item name="android:textColor">?attr/colorPrimary</item>
   </style>
+
+  <!-- user styling -->
+  <style name="MaterialCalendarTheme" parent="BaseMaterialCalendarTheme" />
+  <style name="MaterialCalendarFullScreenTheme" parent="BaseMaterialCalendarFullScreenTheme" />
+
 </resources>

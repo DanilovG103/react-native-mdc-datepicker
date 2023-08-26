@@ -22,6 +22,7 @@ export class MDCDatePicker {
 
     const value = await DatePickerModule.present({
       fullScreen: false,
+      dynamicColors: false,
       ...args,
     });
 
@@ -34,6 +35,7 @@ export class MDCDatePicker {
     const args = MDCDatePicker.normalizeOptions(options);
     const value = await DatePickerModule.present({
       fullScreen: true,
+      dynamicColors: false,
       ...args,
       type: 'range',
     });

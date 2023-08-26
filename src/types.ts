@@ -19,6 +19,7 @@ interface BasePickerOptions {
   minDate?: Date;
   maxDate?: Date;
   fullScreen?: boolean;
+  dynamicColors?: boolean;
 }
 
 export interface PickerRangeOptions extends BasePickerOptions {
@@ -41,6 +42,7 @@ export type TimePickerMode = 'input' | 'clock';
 export interface TimePickerOptions extends TextOptions {
   format?: TimePickerFormat;
   mode?: TimePickerMode;
+  dynamicColors?: boolean;
 }
 
 export interface TimePickerResult {
