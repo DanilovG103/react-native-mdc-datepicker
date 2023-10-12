@@ -40,8 +40,9 @@
   },
   "keywords": [
     "react-native",
-    "ios",
-    "android"
+    "android",
+    "material-design",
+    "mdc"
   ],
   "repository": "https://github.com/DanilovG103/react-native-mdc-datepicker",
   "author": "DanilovG103 <danilov2706@gmail.com> (https://github.com/DanilovG103)",
