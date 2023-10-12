@@ -38,6 +38,65 @@ MDCTimePicker.present(options?: TimePickerOptions): Promise<{hour: number, minut
 
 ```
 
+## DatePicker Usage (Declarative Api)
+```js
+import { DatePicker } from 'react-native-mdc-datepicker';
+
+const [visible, setVisible] = useState(false);
+const [selected, setSelected] = useState<Date | null>(null);
+
+return (
+    <DatePicker
+        visible={dateVisible}
+        setVisible={setDateVisible}
+        value={selected}
+        minDate={minDate}
+        dynamicColors
+        maxDate={maxDate}
+        onSelect={setSelected}
+    />
+)
+```
+## DateRangePicker Usage (Declarative Api)
+```js
+import { DatePicker } from 'react-native-mdc-datepicker';
+
+const [visible, setVisible] = useState(false);
+const [selectedRange, setSelectedRange] = useState<{
+    start: Date | null;
+    end: Date | null;
+}>({ start: null, end: null });
+
+return (
+    <DatePicker
+        mode="range"
+        visible={rangeVisible}
+        setVisible={setRangeVisible}
+        minDate={minDate}
+        maxDate={maxDate}
+        onSelect={setSelectedRange}
+        {...selectedRange}
+    />
+)
+```
+
+## TimePicker Usage (Declarative Api)
+```js
+import { TimePicker, type TimePickerResult } from 'react-native-mdc-datepicker';
+
+const [visible, setVisible] = useState(false);
+const [time, setTime] = useState<TimePickerResult | null>(null)
+return (
+    <TimePicker
+        visible={visible}
+        setVisible={setVisible}
+        format="24"
+        mode="clock"
+        onSelect={setTime}
+    />
+)
+```
+
 ## Usage (Imperative Api)
 ```js
 const [selected, setSelected] = useState<Date | null>(null);
