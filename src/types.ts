@@ -50,3 +50,32 @@ export interface TimePickerResult {
   hour: number;
   minute: number;
 }
+
+export interface PickerComponentBaseProps<Result> {
+  visible: boolean;
+  setVisible: (value: boolean) => void;
+  onDismiss?: () => void;
+  onSelect?: (result: Result) => void;
+}
+
+export type TimePickerProps = TimePickerOptions &
+  PickerComponentBaseProps<TimePickerResult>;
+
+export type DatePickerDefaultProps = PickerDefaultOptions &
+  PickerComponentBaseProps<Date>;
+
+export type DatePickerRangeProps = PickerRangeOptions &
+  PickerComponentBaseProps<PickerRangeResult>;
+
+export interface DatePickerRangeComponentProps extends DatePickerRangeProps {
+  mode: 'range';
+}
+
+export interface DatePickerDefaultComponentProps
+  extends DatePickerDefaultProps {
+  mode?: 'default';
+}
+
+export type DatePickerProps =
+  | DatePickerDefaultComponentProps
+  | DatePickerRangeComponentProps;
