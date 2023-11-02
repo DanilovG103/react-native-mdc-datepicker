@@ -1,7 +1,23 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
-        <item name="android:editTextBackground">@drawable/rn_edit_text_material</item>
-    </style>
+  <!-- Base application theme. -->
+  <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+    <item name="android:editTextBackground">@drawable/rn_edit_text_material</item>
+  </style>
+  <style name="MaterialCalendarLightTheme" parent="BaseMaterialCalendarTheme">
+    <item name="colorPrimary">#809A54</item>
+    <item name="colorOnPrimary">#3B333D</item>
+    <item name="colorSurface">#FFFFFF</item>
+    <item name="colorOnSurface">#3B333D</item>
+    <item name="colorOnSurfaceVariant">#809A54</item>
+    <item name="colorError">#F22D2D</item>
+  </style>
+  <style name="MaterialCalendarDarkTheme" parent="BaseMaterialCalendarTheme">
+    <item name="colorPrimary">#007AFF</item>
+    <item name="colorOnPrimary">#FFFFFF</item>
+    <item name="colorSurface">#241f28</item>
+    <item name="colorOnSurface">#FFFFFF</item>
+    <item name="colorOnSurfaceVariant">#007AFF</item>
+    <item name="colorError">#F22D2D</item>
+  </style>
 </resources>

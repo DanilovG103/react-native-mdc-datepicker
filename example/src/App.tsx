@@ -4,18 +4,24 @@ import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import {
   DatePicker,
   TimePicker,
+  MDCDatePicker,
   type TimePickerResult,
+  type DatePickerProps,
 } from 'react-native-mdc-datepicker';
 
 const minDate = new Date(2020, 5, 14);
 const maxDate = new Date(2023, 11, 24);
 
+type Theme = DatePickerProps['theme'];
+
+const THEMES: Theme[] = ['light', 'dark', 'system'];
+
 export default function App() {
+  const [theme, setTheme] = useState<Theme>('system');
   const [time, setTime] = useState<TimePickerResult | null>(null);
   const [timeVisible, setTimeVisible] = useState(false);
   const [dateVisible, setDateVisible] = useState(false);
   const [rangeVisible, setRangeVisible] = useState(false);
-
   const [selected, setSelected] = useState<Date | null>(null);
   const [selectedRange, setSelectedRange] = useState<{
     start: Date | null;
@@ -58,6 +64,11 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+      {THEMES.map((el) => (
+        <TouchableOpacity onPress={() => setTheme(el)} key={el}>
+          <Text>Set {el} theme</Text>
+        </TouchableOpacity>
+      ))}
       <TouchableOpacity onPress={presentDefault}>
         <Text>Show Date Picker</Text>
       </TouchableOpacity>
@@ -75,20 +86,24 @@ export default function App() {
       <TimePicker
         visible={timeVisible}
         setVisible={setTimeVisible}
-        format="24"
+        format="12"
         mode="clock"
         onSelect={setTime}
+        theme={theme}
+        dynamicColors
       />
       <DatePicker
+        theme={theme}
         visible={dateVisible}
         setVisible={setDateVisible}
         value={selected}
         minDate={minDate}
-        dynamicColors
         maxDate={maxDate}
         onSelect={setSelected}
+        dynamicColors
       />
       <DatePicker
+        theme={theme}
         dynamicColors
         mode="range"
         visible={rangeVisible}
