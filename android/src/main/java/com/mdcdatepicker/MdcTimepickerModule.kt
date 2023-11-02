@@ -18,9 +18,8 @@ class MdcTimepickerModule(ctx: ReactApplicationContext): ReactContextBaseJavaMod
   public fun present(args: ReadableMap, promise: Promise) {
     val activity = currentActivity as FragmentActivity
     val manager = activity.supportFragmentManager
-    val dynamicColors = args.getBoolean("dynamicColors")
 
-    val activityTheme = if (dynamicColors) R.style.MaterialDynamicTheme else R.style.MaterialTheme
+    val activityTheme = args.getActivityTheme()
 
     activity.setTheme(activityTheme)
 
@@ -48,13 +47,15 @@ class MdcTimepickerModule(ctx: ReactApplicationContext): ReactContextBaseJavaMod
       else -> MaterialTimePicker.INPUT_MODE_CLOCK
     }
 
+    val theme = options.getTimepickerTheme()
+
     val builder = MaterialTimePicker.Builder()
       .setTitleText(title)
       .setTimeFormat(timeFormat)
       .setInputMode(inputMode)
       .setNegativeButtonText(cancelText)
       .setPositiveButtonText(okText)
-      .setTheme(R.style.MaterialTimePickerTheme)
+      .setTheme(theme)
 
     val picker = builder.build()
 
@@ -68,6 +69,19 @@ class MdcTimepickerModule(ctx: ReactApplicationContext): ReactContextBaseJavaMod
     }
 
     return picker
+  }
+
+  private fun ReadableMap.getTimepickerTheme(): Int {
+    val theme = this.getString("theme")
+
+    val timepickerTheme = when (theme) {
+      "system" -> R.style.MaterialTimePickerTheme
+      "dark" -> R.style.MaterialTimePickerDarkTheme
+      "light" -> R.style.MaterialTimePickerLightTheme
+      else -> R.style.MaterialTimePickerTheme
+    }
+
+    return timepickerTheme
   }
 
   private fun onApply(promise: Promise, hour: Int, minute: Int) {

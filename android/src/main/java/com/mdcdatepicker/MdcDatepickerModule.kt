@@ -25,8 +25,7 @@ class MdcDatepickerModule(reactContext: ReactApplicationContext) :
   @ReactMethod
   public fun present(arguments: ReadableMap, promise: Promise) {
     val activity = currentActivity as FragmentActivity
-    val dynamicColors = arguments.getBoolean("dynamicColors")
-    val activityTheme = if (dynamicColors) R.style.MaterialDynamicTheme else R.style.MaterialTheme
+    val activityTheme = arguments.getActivityTheme()
     val manager = activity.supportFragmentManager
     activity.setTheme(activityTheme)
     val picker = calendarBuilder(arguments, promise)
@@ -37,7 +36,6 @@ class MdcDatepickerModule(reactContext: ReactApplicationContext) :
   }
 
   private fun calendarBuilder(options: ReadableMap, promise: Promise): MaterialDatePicker<out Any> {
-    val fullscreen = options.getBoolean("fullScreen")
     val type = options.getString("type")
     val title = options.getString("title")
     val minDate = options.getMap("minDate")
@@ -45,7 +43,7 @@ class MdcDatepickerModule(reactContext: ReactApplicationContext) :
     val constraints = constraintsBuilder(minDate, maxDate)
     val okText = options.getString("confirmText")
     val cancelText = options.getString("cancelText")
-    val theme = if (fullscreen) R.style.MaterialCalendarFullScreenTheme else R.style.MaterialCalendarTheme
+    val theme = options.getCalendarTheme()
 
     if (type.equals("range")) {
       val initialStart = options.getMap("initialStart")
@@ -105,6 +103,7 @@ class MdcDatepickerModule(reactContext: ReactApplicationContext) :
     return picker
   }
 
+
   private fun constraintsBuilder(minDate: ReadableMap?, maxDate: ReadableMap?): CalendarConstraints {
     val constraints = CalendarConstraints.Builder()
     val validators = mutableListOf<DateValidator>()
@@ -137,6 +136,27 @@ class MdcDatepickerModule(reactContext: ReactApplicationContext) :
     calendar.set(year, month, day)
 
     return calendar.timeInMillis
+  }
+
+  private fun ReadableMap.getCalendarTheme(): Int {
+    val theme = this.getString("theme")
+    val fullScreen = this.getBoolean("fullScreen")
+
+    val fullScreenTheme = when (theme) {
+      "system" -> R.style.MaterialCalendarFullScreenTheme
+      "dark" -> R.style.MaterialCalendarFullScreenDarkTheme
+      "light" -> R.style.MaterialCalendarFullScreenLightTheme
+      else -> R.style.MaterialCalendarFullScreenTheme
+    }
+
+    val calendarTheme = when (theme) {
+      "system" -> R.style.MaterialCalendarTheme
+      "dark" -> R.style.MaterialCalendarDarkTheme
+      "light" -> R.style.MaterialCalendarLightTheme
+      else -> R.style.MaterialCalendarTheme
+    }
+
+    return if (fullScreen) fullScreenTheme else calendarTheme
   }
 
   private fun onApply(promise: Promise, it: Long) {

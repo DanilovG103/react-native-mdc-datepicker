@@ -20,6 +20,7 @@ interface BasePickerOptions {
   maxDate?: Date;
   fullScreen?: boolean;
   dynamicColors?: boolean;
+  theme?: 'system' | 'dark' | 'light';
 }
 
 export interface PickerRangeOptions extends BasePickerOptions {
@@ -44,6 +45,7 @@ export interface TimePickerOptions extends TextOptions {
   format?: TimePickerFormat;
   mode?: TimePickerMode;
   dynamicColors?: boolean;
+  theme?: 'system' | 'dark' | 'light';
 }
 
 export interface TimePickerResult {

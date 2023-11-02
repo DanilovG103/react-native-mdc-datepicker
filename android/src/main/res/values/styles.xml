@@ -2,13 +2,20 @@
 <resources>
 
   <style name="MaterialTheme" parent="Theme.Material3.DayNight"/>
+  <style name="MaterialLightTheme" parent="Theme.Material3.Light"/>
+  <style name="MaterialDarkTheme" parent="Theme.Material3.Dark" />
   <style name="MaterialDynamicTheme" parent="Theme.Material3.DynamicColors.DayNight" />
+  <style name="MaterialDynamicLightTheme" parent="Theme.Material3.DynamicColors.Light"/>
+  <style name="MaterialDynamicDarkTheme" parent="Theme.Material3.DynamicColors.Dark"/>
+
+  <!-- Base theming -->
   <style name="BaseMaterialCalendarTheme" parent="ThemeOverlay.Material3.MaterialCalendar">
     <item name="buttonBarPositiveButtonStyle">@style/MaterialTextButton</item>
     <item name="buttonBarNegativeButtonStyle">@style/MaterialTextButton</item>
   </style>
   <style name="BaseMaterialCalendarFullScreenTheme" parent="ThemeOverlay.Material3.MaterialCalendar.Fullscreen" />
-  <style name="MaterialTimePickerTheme" parent="ThemeOverlay.Material3.MaterialTimePicker">
+
+  <style name="BaseMaterialTimePickerTheme" parent="ThemeOverlay.Material3.MaterialTimePicker">
     <item name="borderlessButtonStyle">@style/MaterialTextButton</item>
   </style>
   <style name="MaterialTextButton" parent="Widget.Material3.Button.TextButton.Dialog">
@@ -16,7 +23,23 @@
   </style>
 
   <!-- user styling -->
+
+  <!-- theme = 'system' fullScreen={false}  -->
   <style name="MaterialCalendarTheme" parent="BaseMaterialCalendarTheme" />
+  <!-- theme = 'light' fullScreen={false}  -->
+  <style name="MaterialCalendarLightTheme" parent="BaseMaterialCalendarTheme"/>
+  <!-- theme = 'dark' fullScreen={false} -->
+  <style name="MaterialCalendarDarkTheme" parent="BaseMaterialCalendarTheme"/>
+
+  <!-- theme = 'system' fullScreen -->
   <style name="MaterialCalendarFullScreenTheme" parent="BaseMaterialCalendarFullScreenTheme" />
+  <!-- theme = 'dark' fullScreen -->
+  <style name="MaterialCalendarFullScreenDarkTheme" parent="BaseMaterialCalendarFullScreenTheme" />
+  <!-- theme = 'light' fullScreen -->
+  <style name="MaterialCalendarFullScreenLightTheme" parent="BaseMaterialCalendarFullScreenTheme" />
+
+  <style name="MaterialTimePickerTheme" parent="BaseMaterialTimePickerTheme" />
+  <style name="MaterialTimePickerDarkTheme" parent="BaseMaterialTimePickerTheme" />
+  <style name="MaterialTimePickerLightTheme" parent="BaseMaterialTimePickerTheme" />
 
 </resources>
