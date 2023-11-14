@@ -4,7 +4,6 @@ import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import {
   DatePicker,
   TimePicker,
-  MDCDatePicker,
   type TimePickerResult,
   type DatePickerProps,
 } from 'react-native-mdc-datepicker';
@@ -85,17 +84,18 @@ export default function App() {
       </TouchableOpacity>
       <TimePicker
         visible={timeVisible}
-        setVisible={setTimeVisible}
+        onClose={() => setTimeVisible(false)}
         format="12"
         mode="clock"
         onSelect={setTime}
         theme={theme}
         dynamicColors
+        value={time}
       />
       <DatePicker
         theme={theme}
         visible={dateVisible}
-        setVisible={setDateVisible}
+        onClose={() => setDateVisible(false)}
         value={selected}
         minDate={minDate}
         maxDate={maxDate}
@@ -107,7 +107,7 @@ export default function App() {
         dynamicColors
         mode="range"
         visible={rangeVisible}
-        setVisible={setRangeVisible}
+        onClose={() => setRangeVisible(false)}
         minDate={minDate}
         maxDate={maxDate}
         onSelect={setSelectedRange}
