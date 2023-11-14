@@ -24,41 +24,41 @@ yarn add react-native-mdc-datepicker
 
 ## MDCDatePicker Api
 
-```js
+```ts
 import { MDCDatePicker } from "react-native-mdc-datepicker"
 
 MDCDatePicker.present(options ? : PickerDefaultOptions)
 :
-Promise < Date >
+Promise <Date>
 
 MDCDatePicker.presentRange(options ? : PickerRangeOptions)
 :
-Promise < { start: Date, end: Date } >
+Promise <{ start: Date, end: Date }>
 ```
 
 ## MDCTimePicker Api
 
-```js
+```ts
 import { MDCTimePicker } from "react-native-mdc-datepicker"
 
 MDCTimePicker.present(options ? : TimePickerOptions)
 :
-Promise < { hour: number, minute: number } >
+Promise <{ hour: number, minute: number }>
 
 ```
 
 ## DatePicker Usage (Declarative Api)
 
-```js
+```tsx
 import { DatePicker } from 'react-native-mdc-datepicker';
 
 const [visible, setVisible] = useState(false);
-const [selected, setSelected] = useState < Date | null > (null);
+const [selected, setSelected] = useState<Date | null>(null);
 
 return (
   <DatePicker
-    visible={dateVisible}
-    setVisible={setDateVisible}
+    visible={visible}
+    onClose={() => setVisible(false)}
     value={selected}
     minDate={minDate}
     dynamicColors
@@ -70,20 +70,20 @@ return (
 
 ## DateRangePicker Usage (Declarative Api)
 
-```js
+```tsx
 import { DatePicker } from 'react-native-mdc-datepicker';
 
 const [visible, setVisible] = useState(false);
-const [selectedRange, setSelectedRange] = useState < {
+const [selectedRange, setSelectedRange] = useState<{
   start: Date | null;
   end: Date | null;
-} > ({ start: null, end: null });
+}>({ start: null, end: null });
 
 return (
   <DatePicker
     mode="range"
-    visible={rangeVisible}
-    setVisible={setRangeVisible}
+    visible={visible}
+    onClose={() => setVisible(false)}
     minDate={minDate}
     maxDate={maxDate}
     onSelect={setSelectedRange}
@@ -94,15 +94,15 @@ return (
 
 ## TimePicker Usage (Declarative Api)
 
-```js
+```tsx
 import { TimePicker, type TimePickerResult } from 'react-native-mdc-datepicker';
 
 const [visible, setVisible] = useState(false);
-const [time, setTime] = useState < TimePickerResult | null > (null)
+const [time, setTime] = useState<TimePickerResult | null>(null)
 return (
   <TimePicker
     visible={visible}
-    setVisible={setVisible}
+    onClose={() => setVisible(false)}
     format="24"
     mode="clock"
     onSelect={setTime}
@@ -112,13 +112,13 @@ return (
 
 ## Usage (Imperative Api)
 
-```js
-const [selected, setSelected] = useState < Date | null > (null);
+```tsx
+const [selected, setSelected] = useState<Date | null>(null);
 
-const [selectedRange, setSelectedRange] = useState < {
+const [selectedRange, setSelectedRange] = useState<{
   start: Date | null;
   end: Date | null;
-} > ({ start: null, end: null });
+}>({ start: null, end: null });
 
 const presentDefault = async () => {
   try {
@@ -141,54 +141,57 @@ const presentRange = async () => {
 ## Picker Options
 
 | Prop          | Type                                   | Required | Description                                         |
-|---------------|----------------------------------------|----------|-----------------------------------------------------
-| value         | Date or null                           | NO       | Selected value                                      
-| initialDate   | Date                                   | NO       | Initially selected value                            
-| minDate       | Date                                   | NO       | Minimum date that can be selected                   
-| maxDate       | Date                                   | NO       | Maximum date that can be selected                   
-| fullScreen    | boolean (default - false)              | NO       | If true datepicker will be presented in full screen 
-| dynamicColors | boolean (default - false)              | NO       | If true will aplly system dynamic colors            
-| title         | string                                 | NO       | Title of the picker                                 
-| confirmText   | string                                 | NO       | Confirm text of the picker                          
-| cancelText    | string                                 | NO       | Cancel text of the picker                           
-| theme         | 'system'(default) \| 'dark' \| 'light' | NO       | Defines picker theme                                
+|---------------|----------------------------------------|----------|-----------------------------------------------------|
+| value         | Date or null                           | NO       | Selected value                                      |
+| initialDate   | Date                                   | NO       | Initially selected value                            |
+| minDate       | Date                                   | NO       | Minimum date that can be selected                   |
+| maxDate       | Date                                   | NO       | Maximum date that can be selected                   |
+| fullScreen    | boolean (default - false)              | NO       | If true datepicker will be presented in full screen |
+| dynamicColors | boolean (default - false)              | NO       | If true will aplly system dynamic colors            |
+| title         | string                                 | NO       | Title of the picker                                 |
+| confirmText   | string                                 | NO       | Confirm text of the picker                          |
+| cancelText    | string                                 | NO       | Cancel text of the picker                           |
+| theme         | 'system'(default) \| 'dark' \| 'light' | NO       | Defines picker theme                                |
 
 ## Range Picker Options
 
 | Prop          | Type                                   | Required | Description                                         |
-|---------------|----------------------------------------|----------|-----------------------------------------------------
-| start         | Date or null                           | NO       | Selected start value                                
-| end           | Date or null                           | NO       | Selected end value                                  
-| initialStart  | Date                                   | NO       | Initially selected value for start                  
-| initialEnd    | Date                                   | NO       | Initially selected value for end                    
-| minDate       | Date                                   | NO       | Minimum date that can be selected                   
-| maxDate       | Date                                   | NO       | Maximum date that can be selected                   
-| fullScreen    | boolean (default - true)               | NO       | If true datepicker will be presented in full screen 
-| dynamicColors | boolean (default - false)              | NO       | If true will aplly system dynamic colors            
-| title         | string                                 | NO       | Title of the picker                                 
-| confirmText   | string                                 | NO       | Confirm text of the picker                          
-| theme         | 'system'(default) \| 'dark' \| 'light' | NO       | Defines picker theme                                
+|---------------|----------------------------------------|----------|-----------------------------------------------------|
+| start         | Date or null                           | NO       | Selected start value                                |
+| end           | Date or null                           | NO       | Selected end value                                  |
+| initialStart  | Date                                   | NO       | Initially selected value for start                  |
+| initialEnd    | Date                                   | NO       | Initially selected value for end                    |
+| minDate       | Date                                   | NO       | Minimum date that can be selected                   |
+| maxDate       | Date                                   | NO       | Maximum date that can be selected                   |
+| fullScreen    | boolean (default - true)               | NO       | If true datepicker will be presented in full screen |
+| dynamicColors | boolean (default - false)              | NO       | If true will aplly system dynamic colors            |
+| title         | string                                 | NO       | Title of the picker                                 |
+| confirmText   | string                                 | NO       | Confirm text of the picker                          |
+| theme         | 'system'(default) \| 'dark' \| 'light' | NO       | Defines picker theme                                |
 
 ## TimePicker Options
 
 | Prop          | Type                                   | Required | Description                              |
-|---------------|----------------------------------------|----------|------------------------------------------
-| format        | '24' or '12'                           | NO       | Defines time format of the picker        
-| mode          | 'input' or 'clock'                     | NO       | Defines start mode of the picker         
-| dynamicColors | boolean (default - false)              | NO       | If true will aplly system dynamic colors 
-| title         | string                                 | NO       | Title of the picker                      
-| confirmText   | string                                 | NO       | Confirm text of the picker               
-| cancelText    | string                                 | NO       | Cancel text of the picker                
-| theme         | 'system'(default) \| 'dark' \| 'light' | NO       | Defines picker theme                     
+|---------------|----------------------------------------|----------|------------------------------------------|
+| value         | {hour, minute} \| null                 | NO       | Selected time                            |
+| initialTime   | {hour, minute} \| null                 | NO       | Initially selected time                  |
+| format        | '24' or '12'                           | NO       | Defines time format of the picker        |
+| mode          | 'input' or 'clock'                     | NO       | Defines start mode of the picker         |
+| dynamicColors | boolean (default - false)              | NO       | If true will aplly system dynamic colors |
+| title         | string                                 | NO       | Title of the picker                      |
+| confirmText   | string                                 | NO       | Confirm text of the picker               |
+| cancelText    | string                                 | NO       | Cancel text of the picker                |
+| theme         | 'system'(default) \| 'dark' \| 'light' | NO       | Defines picker theme                     |
 
 # Customization
 
 For customization pickers you need to define styles in your src/main/res/values/styles.xml
+
 For different themes will be used different styles
 
 You can learn about picker customization on resources:
 <a href="https://github.com/material-components/material-components-android/blob/master/docs/components/DatePicker.md">
-Date picker</a>
+Date picker</a>,
 <a href="https://github.com/material-components/material-components-android/blob/master/docs/components/TimePicker.md">
 Time picker</a>
 
@@ -226,9 +229,9 @@ Time picker</a>
 
 ## Example
 
-<img src="./docs/images/customized-light-picker.jpg" alt="customized light picker example" width="200px" height='400px' />
+<img src="./docs/images/customized-light-picker.jpg" alt="customized light picker example" width="270px" height='400px' />
 
-```jsx
+```tsx
 <DatePicker
   theme="light"
 />
@@ -245,9 +248,9 @@ Time picker</a>
 </style>
 ```
 
-<img src="./docs/images/customized-dark-picker.jpg" alt='customized dark picker example' width='200px' height='400px'/>
+<img src="./docs/images/customized-dark-picker.jpg" alt='customized dark picker example' width='270px' height='400px'/>
 
-```jsx
+```tsx
 <DatePicker
   theme="dark"
 />

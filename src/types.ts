@@ -41,21 +41,25 @@ export type TimePickerFormat = '24' | '12';
 
 export type TimePickerMode = 'input' | 'clock';
 
-export interface TimePickerOptions extends TextOptions {
-  format?: TimePickerFormat;
-  mode?: TimePickerMode;
-  dynamicColors?: boolean;
-  theme?: 'system' | 'dark' | 'light';
-}
-
 export interface TimePickerResult {
   hour: number;
   minute: number;
 }
 
+export type TimePickerPayload = Partial<TimePickerResult>;
+
+export interface TimePickerOptions extends TextOptions {
+  format?: TimePickerFormat;
+  mode?: TimePickerMode;
+  dynamicColors?: boolean;
+  theme?: 'system' | 'dark' | 'light';
+  initialTime?: TimePickerPayload | null;
+  value?: TimePickerPayload | null;
+}
+
 export interface PickerComponentBaseProps<Result> {
   visible: boolean;
-  setVisible: (value: boolean) => void;
+  onClose: () => void;
   onDismiss?: () => void;
   onSelect?: (result: Result) => void;
 }
