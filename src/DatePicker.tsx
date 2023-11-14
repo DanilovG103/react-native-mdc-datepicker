@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import type { DatePickerProps } from './types';
 import { MDCDatePicker } from './datepickermodule';
 
-const DatePicker = ({ visible, setVisible, ...props }: DatePickerProps) => {
+const DatePicker = ({ visible, onClose, ...props }: DatePickerProps) => {
   useEffect(() => {
     if (!visible) return;
 
@@ -12,7 +12,7 @@ const DatePicker = ({ visible, setVisible, ...props }: DatePickerProps) => {
       MDCDatePicker.present(defaultProps)
         .then(onSelect)
         .catch(onDismiss)
-        .finally(() => setVisible(false));
+        .finally(onClose);
       return;
     }
 
@@ -21,7 +21,7 @@ const DatePicker = ({ visible, setVisible, ...props }: DatePickerProps) => {
       MDCDatePicker.presentRange(rangeProps)
         .then(onSelect)
         .catch(onDismiss)
-        .finally(() => setVisible(false));
+        .finally(onClose);
       return;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

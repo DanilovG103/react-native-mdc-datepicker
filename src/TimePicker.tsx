@@ -6,7 +6,7 @@ const TimePicker = ({
   visible,
   onSelect,
   onDismiss,
-  setVisible,
+  onClose,
   ...timePickerOptions
 }: TimePickerProps) => {
   useEffect(() => {
@@ -15,7 +15,7 @@ const TimePicker = ({
     MDCTimePicker.present(timePickerOptions)
       .then(onSelect)
       .catch(onDismiss)
-      .finally(() => setVisible(false));
+      .finally(onClose);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [visible]);
 
