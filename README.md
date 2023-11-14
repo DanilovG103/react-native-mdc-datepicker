@@ -57,8 +57,8 @@ const [selected, setSelected] = useState<Date | null>(null);
 
 return (
   <DatePicker
-    visible={dateVisible}
-    setVisible={setDateVisible}
+    visible={visible}
+    onClose={() => setVisible(false)}
     value={selected}
     minDate={minDate}
     dynamicColors
@@ -82,8 +82,8 @@ const [selectedRange, setSelectedRange] = useState<{
 return (
   <DatePicker
     mode="range"
-    visible={rangeVisible}
-    setVisible={setRangeVisible}
+    visible={visible}
+    onClose={() => setVisible(false)}
     minDate={minDate}
     maxDate={maxDate}
     onSelect={setSelectedRange}
@@ -102,7 +102,7 @@ const [time, setTime] = useState<TimePickerResult | null>(null)
 return (
   <TimePicker
     visible={visible}
-    setVisible={setVisible}
+    onClose={() => setVisible(false)}
     format="24"
     mode="clock"
     onSelect={setTime}

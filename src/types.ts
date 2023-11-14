@@ -59,7 +59,7 @@ export interface TimePickerOptions extends TextOptions {
 
 export interface PickerComponentBaseProps<Result> {
   visible: boolean;
-  onClose?: () => void;
+  onClose: () => void;
   onDismiss?: () => void;
   onSelect?: (result: Result) => void;
 }
