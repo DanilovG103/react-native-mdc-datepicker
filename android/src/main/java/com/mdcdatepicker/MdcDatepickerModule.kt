@@ -142,19 +142,9 @@ class MdcDatepickerModule(reactContext: ReactApplicationContext) :
     val theme = this.getString("theme")
     val fullScreen = this.getBoolean("fullScreen")
 
-    val fullScreenTheme = when (theme) {
-      "system" -> R.style.MaterialCalendarFullScreenTheme
-      "dark" -> R.style.MaterialCalendarFullScreenDarkTheme
-      "light" -> R.style.MaterialCalendarFullScreenLightTheme
-      else -> R.style.MaterialCalendarFullScreenTheme
-    }
+    val fullScreenTheme = fullScreenTheme[theme] ?: R.style.MaterialCalendarFullScreenTheme
 
-    val calendarTheme = when (theme) {
-      "system" -> R.style.MaterialCalendarTheme
-      "dark" -> R.style.MaterialCalendarDarkTheme
-      "light" -> R.style.MaterialCalendarLightTheme
-      else -> R.style.MaterialCalendarTheme
-    }
+    val calendarTheme = defaultTheme[theme] ?: R.style.MaterialCalendarTheme
 
     return if (fullScreen) fullScreenTheme else calendarTheme
   }
@@ -190,5 +180,11 @@ class MdcDatepickerModule(reactContext: ReactApplicationContext) :
   companion object {
     const val NAME = "MdcDatepicker"
     const val TAG = "MdcDatepickerFragmentTag"
+
+    val fullScreenTheme = mapOf("dark" to R.style.MaterialCalendarFullScreenDarkTheme,
+      "light" to R.style.MaterialCalendarFullScreenLightTheme)
+
+    val defaultTheme = mapOf("dark" to R.style.MaterialCalendarDarkTheme,
+      "light" to R.style.MaterialCalendarLightTheme)
   }
 }
